@@ -1,0 +1,80 @@
+============== linf transfer, cifar10=============
+modelA_cifar10->modelA_cifar10: 10.0, size = 0.0078
+modelA_cifar10->model_stn_100: 69.4, size = 0.0078
+modelA_cifar10->modelA_cifar10: 10.0, size = 0.0157
+modelA_cifar10->model_stn_100: 68.4, size = 0.0157
+modelA_cifar10->modelA_cifar10: 10.0, size = 0.0235
+modelA_cifar10->model_stn_100: 66.9, size = 0.0235
+modelA_cifar10->modelA_cifar10: 10.0, size = 0.0314
+modelA_cifar10->model_stn_100: 65.7, size = 0.0314
+modelA_cifar10->modelA_cifar10: 10.0, size = 0.0392
+modelA_cifar10->model_stn_100: 64.2, size = 0.0392
+modelA_cifar10->modelA_cifar10: 10.0, size = 0.0471
+modelA_cifar10->model_stn_100: 63.1, size = 0.0471
+modelA_cifar10->modelA_cifar10: 10.0, size = 0.0549
+modelA_cifar10->model_stn_100: 62.1, size = 0.0549
+modelA_cifar10->modelA_cifar10: 10.0, size = 0.0627
+modelA_cifar10->model_stn_100: 60.9, size = 0.0627
+modelA_cifar10->modelA_cifar10: 10.0, size = 0.0706
+modelA_cifar10->model_stn_100: 59.7, size = 0.0706
+modelA_cifar10->modelA_cifar10: 10.0, size = 0.0784
+modelA_cifar10->model_stn_100: 58.4, size = 0.0784
+
+============== l2 transfer, cifar10=============
+modelA_cifar10->modelA_cifar10: 10.0, size = 0.2000
+modelA_cifar10->model_stn_100: 69.9, size = 0.2000
+modelA_cifar10->modelA_cifar10: 10.0, size = 0.4000
+modelA_cifar10->model_stn_100: 69.1, size = 0.4000
+modelA_cifar10->modelA_cifar10: 10.0, size = 0.6000
+modelA_cifar10->model_stn_100: 68.3, size = 0.6000
+modelA_cifar10->modelA_cifar10: 10.0, size = 0.8000
+modelA_cifar10->model_stn_100: 67.4, size = 0.8000
+modelA_cifar10->modelA_cifar10: 10.0, size = 1.0000
+modelA_cifar10->model_stn_100: 66.8, size = 1.0000
+modelA_cifar10->modelA_cifar10: 10.0, size = 1.2000
+modelA_cifar10->model_stn_100: 65.9, size = 1.2000
+modelA_cifar10->modelA_cifar10: 10.0, size = 1.4000
+modelA_cifar10->model_stn_100: 65.1, size = 1.4000
+
+============== l2 transfer, mnist =============
+modelA_mnist->modelA_mnist: 55.2, size = 0.5000
+modelA_mnist->model_stn_07: 97.7, size = 0.5000
+modelA_mnist->modelA_mnist: 47.1, size = 1.0000
+modelA_mnist->model_stn_07: 96.9, size = 1.0000
+modelA_mnist->modelA_mnist: 38.3, size = 1.5000
+modelA_mnist->model_stn_07: 95.3, size = 1.5000
+modelA_mnist->modelA_mnist: 30.2, size = 2.0000
+modelA_mnist->model_stn_07: 93.2, size = 2.0000
+modelA_mnist->modelA_mnist: 23.9, size = 2.5000
+modelA_mnist->model_stn_07: 90.5, size = 2.5000
+modelA_mnist->modelA_mnist: 18.6, size = 3.0000
+modelA_mnist->model_stn_07: 86.5, size = 3.0000
+modelA_mnist->modelA_mnist: 14.3, size = 3.5000
+modelA_mnist->model_stn_07: 81.4, size = 3.5000
+modelA_mnist->modelA_mnist: 10.7, size = 4.0000
+modelA_mnist->model_stn_07: 74.9, size = 4.0000
+
+============== linf transfer, mnist =============
+modelA_mnist->modelA_mnist: 51.2, size = 0.0500
+modelA_mnist->model_stn_07: 97.4, size = 0.0500
+modelA_mnist->modelA_mnist: 39.2, size = 0.1000
+modelA_mnist->model_stn_07: 96.0, size = 0.1000
+modelA_mnist->modelA_mnist: 29.2, size = 0.1500
+modelA_mnist->model_stn_07: 94.1, size = 0.1500
+modelA_mnist->modelA_mnist: 21.1, size = 0.2000
+modelA_mnist->model_stn_07: 90.4, size = 0.2000
+modelA_mnist->modelA_mnist: 15.5, size = 0.2500
+modelA_mnist->model_stn_07: 84.5, size = 0.2500
+modelA_mnist->modelA_mnist: 10.8, size = 0.3000
+modelA_mnist->model_stn_07: 75.8, size = 0.3000
+modelA_mnist->modelA_mnist: 7.5, size = 0.3500
+modelA_mnist->model_stn_07: 64.6, size = 0.3500
+modelA_mnist->modelA_mnist: 4.7, size = 0.4000
+modelA_mnist->model_stn_07: 50.3, size = 0.4000
+modelA_mnist->modelA_mnist: 2.3, size = 0.4500
+modelA_mnist->model_stn_07: 35.4, size = 0.4500
+modelA_mnist->modelA_mnist: 1.0, size = 0.5000
+modelA_mnist->model_stn_07: 22.3, size = 0.5000
+
+
+============== linf transfer, mnist =============
