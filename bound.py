@@ -3,7 +3,6 @@ import tensorflow as tf
 import keras.backend as K
 from mnist import *
 from cifar10 import load_data, set_flags, load_model
-from fgs import symbolic_fgs, iter_fgs, momentum_fgs, so
 from attack_utils import gen_grad
 from tf_utils_adv import batch_eval
 from os.path import basename
@@ -83,6 +82,8 @@ def main(src_model_name, eps):
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()
+    parser.add_argument("dataset", help="name of data sets",
+                        choices=["mnist", "cifar10"])
     parser.add_argument("src_model", help="source model for attack")
     parser.add_argument("eps", type=float, default=0.1,
                         help="attack scale")
