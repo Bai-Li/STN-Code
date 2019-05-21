@@ -93,38 +93,3 @@ def so(model, x, y, steps, eps, alpha=0, norm="l2", sd=0.0):
     adv_x = tf.clip_by_value(adv_x, 0, 1)
     return adv_x
 
-
-
-def momentum_fgs(model, x, y, eps):
-
-    # parameters
-    nb_iter = 10
-    decay_factor = 1.0
-    eps_iter = eps / 5.0
-	
-    # Initialize loop variables
-    momentum = tf.zeros_like(x)
-    adv_x = x
-
-
-    for i in range(nb_iter):
-        logits = model(adv_x)
-        grad = gen_grad(adv_x, logits, y)
-        
-        # Normalize current gradient and add it to the accumulated gradient
-        red_ind = list(range(1, len(grad.get_shape())))
-        avoid_zero_div = tf.cast(1e-12, grad.dtype)
-        grad = grad / tf.maximum(avoid_zero_div, tf.reduce_mean(tf.abs(grad), red_ind, keepdims=True))
-        momentum = decay_factor * momentum + grad
-
-        normalized_grad = tf.sign(momentum)
-        # Update and clip adversarial example in current iteration
-        scaled_grad = eps_iter * normalized_grad
-        adv_x = adv_x + scaled_grad
-        adv_x = x + tf.clip_by_value(adv_x-x, -eps, eps)
-
-        adv_x = tf.clip_by_value(adv_x, 0., 1.0)
-
-        adv_x = K.stop_gradient(adv_x)
-
-    return adv_x

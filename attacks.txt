@@ -76,5 +76,3 @@ modelA_mnist->model_stn_07: 35.4, size = 0.4500
 modelA_mnist->modelA_mnist: 1.0, size = 0.5000
 modelA_mnist->model_stn_07: 22.3, size = 0.5000
 
-
-============== linf transfer, mnist =============

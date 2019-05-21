@@ -3,7 +3,7 @@ import tensorflow as tf
 import keras.backend as K
 from mnist import *
 from cifar10 import load_data, set_flags, load_model
-from fgs import symbolic_fgs, iter_fgs, momentum_fgs, so
+from fgs import symbolic_fgs, iter_fgs, so
 from attack_utils import gen_grad
 from tf_utils_adv import tf_test_acc, batch_eval
 from os.path import basename
@@ -82,12 +82,9 @@ def main(attack, src_model_name, target_model_names):
     # iterative FGSM
     if attack == "pgd":
         adv_x = iter_fgs(src_model, x, y, steps=args.steps, eps=eps, alpha=eps/10.0)
-    
-    if attack == 'mim':
-        adv_x = momentum_fgs(src_model, x, y, eps=eps)
 
     if attack == 'so':
-        adv_x = so(src_model, x, y, steps=args.steps, eps=eps, alpha=eps/10.0, norm="l2", sd=sd)
+        adv_x = so(src_model, x, y, steps=args.steps, eps=eps, alpha=eps/10.0, norm=args.norm, sd=sd)
 
     print('start')
     # compute the adversarial examples and evaluate
@@ -112,7 +109,7 @@ if __name__ == "__main__":
     parser.add_argument("dataset", help="name of data sets",
                         choices=["mnist", "cifar10"])
     parser.add_argument("attack", help="name of attack",
-                        choices=["test", "fgs", "pgd", "rfgs", "mim","so"])
+                        choices=["test", "fgs", "pgd", "rfgs","so"])
     parser.add_argument("src_model", help="source model for attack")
     parser.add_argument('target_models', nargs='*',
                         help='path to target model(s)')

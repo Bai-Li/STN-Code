@@ -47,7 +47,7 @@ def load_data(one_hot=True):
 
 
 
-def modelZ():
+def modelA():
     model = Sequential()
     model.add(Conv2D(96, (3, 3), padding = 'same', input_shape=(FLAGS.NUM_CHANNELS, FLAGS.IMAGE_ROWS, FLAGS.IMAGE_COLS)))
     model.add(GroupNormalization(axis=1))
@@ -84,96 +84,6 @@ def modelZ():
     return model
 
 
-
-def modelA():
-    weight_decay  = 0.0001
-    model = Sequential()
-
-    model.add(Conv2D(96, (5, 5), padding='same', kernel_regularizer=keras.regularizers.l2(weight_decay), kernel_initializer="he_normal", input_shape=(FLAGS.NUM_CHANNELS, FLAGS.IMAGE_ROWS, FLAGS.IMAGE_COLS)))
-    model.add(Activation('elu'))
-    model.add(Conv2D(96, (1, 1), padding='same', kernel_regularizer=keras.regularizers.l2(weight_decay), kernel_initializer="he_normal"))
-    model.add(Activation('elu'))
-    model.add(MaxPooling2D(pool_size=(3, 3),strides=(2,2),padding = 'same'))
-  
-    model.add(Dropout(0.5))
-  
-    model.add(Conv2D(192, (5, 5), padding='same', kernel_regularizer=keras.regularizers.l2(weight_decay), kernel_initializer="he_normal"))
-    model.add(Activation('elu'))
-    model.add(Conv2D(192, (1, 1),padding='same', kernel_regularizer=keras.regularizers.l2(weight_decay), kernel_initializer="he_normal"))
-    model.add(Activation('elu'))
-    model.add(MaxPooling2D(pool_size=(3, 3),strides=(2,2),padding = 'same'))
-  
-    model.add(Dropout(0.5))
-  
-    model.add(Conv2D(256, (3, 3), padding='same', kernel_regularizer=keras.regularizers.l2(weight_decay), kernel_initializer="he_normal"))
-    model.add(Activation('elu'))
-    model.add(Conv2D(256, (1, 1), padding='same', kernel_regularizer=keras.regularizers.l2(weight_decay), kernel_initializer="he_normal"))
-    model.add(Activation('elu'))
-    model.add(Conv2D(FLAGS.NUM_CLASSES, (1, 1), padding='same', kernel_regularizer=keras.regularizers.l2(weight_decay), kernel_initializer="he_normal"))
-  
-    model.add(GlobalAveragePooling2D())
-    return model
-
-def modelB():
-    weight_decay  = 0.0001
-    model = Sequential()
-
-    model.add(Conv2D(192, (5, 5), padding='same', kernel_regularizer=keras.regularizers.l2(weight_decay), kernel_initializer="he_normal", input_shape=(FLAGS.NUM_CHANNELS, FLAGS.IMAGE_ROWS, FLAGS.IMAGE_COLS)))
-    model.add(Activation('elu'))
-    model.add(Conv2D(96, (1, 1), padding='same', kernel_regularizer=keras.regularizers.l2(weight_decay), kernel_initializer="he_normal"))
-    model.add(Activation('elu'))
-    model.add(MaxPooling2D(pool_size=(3, 3),strides=(2,2),padding = 'same'))
-
-    model.add(Dropout(0.5))
-
-    model.add(Conv2D(192, (5, 5), padding='same', kernel_regularizer=keras.regularizers.l2(weight_decay), kernel_initializer="he_normal"))
-    model.add(Activation('elu'))
-    model.add(Conv2D(192, (1, 1),padding='same', kernel_regularizer=keras.regularizers.l2(weight_decay), kernel_initializer="he_normal"))
-    model.add(Activation('elu'))
-    model.add(MaxPooling2D(pool_size=(3, 3),strides=(2,2),padding = 'same'))
-
-    model.add(Dropout(0.5))
-
-    model.add(Conv2D(256, (3, 3), padding='same', kernel_regularizer=keras.regularizers.l2(weight_decay), kernel_initializer="he_normal"))
-    model.add(Activation('elu'))
-    model.add(Conv2D(256, (1, 1), padding='same', kernel_regularizer=keras.regularizers.l2(weight_decay), kernel_initializer="he_normal"))
-    model.add(Activation('elu'))
-    model.add(Conv2D(FLAGS.NUM_CLASSES, (1, 1), padding='same', kernel_regularizer=keras.regularizers.l2(weight_decay), kernel_initializer="he_normal"))
-    model.add(GlobalAveragePooling2D())
-    return model
-
-
-def modelC():
-    model = Sequential()
-    model.add(Conv2D(96, (3, 3), activation='elu', padding = 'same', input_shape=(FLAGS.NUM_CHANNELS, FLAGS.IMAGE_ROWS, FLAGS.IMAGE_COLS)))
-    model.add(Dropout(0.2))
-
-    model.add(Conv2D(96, (3, 3), activation='elu', padding = 'same'))
-    model.add(Conv2D(96, (3, 3), activation='elu', padding = 'same', strides = 2))
-    model.add(Dropout(0.5))
-
-    model.add(Conv2D(192, (3, 3), activation='elu', padding = 'same'))
-    model.add(Conv2D(192, (3, 3), activation='elu', padding = 'same', strides = 2))
-    model.add(Dropout(0.5))
-
-    model.add(Conv2D(256, (3, 3), padding = 'same'))
-    model.add(Activation('elu'))
-    model.add(Conv2D(256, (1, 1),padding='valid'))
-    model.add(Activation('elu'))
-    model.add(Conv2D(FLAGS.NUM_CLASSES, (1, 1), padding='valid'))
-
-    model.add(GlobalAveragePooling2D())
-
-    return model
-
-
-def model_select(type=0):
-
-    models = [modelZ, modelA, modelB, modelC]
-
-    return models[type]()
-
-
 def data_flow(X_train):
     datagen = ImageDataGenerator()
 
@@ -181,14 +91,14 @@ def data_flow(X_train):
     return datagen
 
 
-def load_model(model_path, type=0):
+def load_model(model_path):
 
     try:
         with open(model_path+'.json', 'r') as f:
             json_string = f.read()
             model = model_from_json(json_string)
     except IOError:
-        model = model_select(type=type)
+        model = modelA()
 
     model.load_weights(model_path)
     return model

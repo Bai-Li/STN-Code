@@ -62,28 +62,6 @@ def data_mnist(one_hot=True):
 
 def modelA():
     model = Sequential()
-    model.add(Conv2D(64, (5, 5),
-                            input_shape=(FLAGS.IMAGE_ROWS,
-                                         FLAGS.IMAGE_COLS,
-                                         FLAGS.NUM_CHANNELS)))
-    model.add(Activation('relu'))
-
-    model.add(Conv2D(64, (5, 5)))
-    model.add(Activation('relu'))
-
-    model.add(Dropout(0.25))
-
-    model.add(Flatten())
-    model.add(Dense(128))
-    model.add(Activation('relu'))
-
-    model.add(Dropout(0.5))
-    model.add(Dense(FLAGS.NUM_CLASSES))
-    return model
-
-
-def modelB():
-    model = Sequential()
     model.add(Dropout(0.2, input_shape=(FLAGS.IMAGE_ROWS,
                                         FLAGS.IMAGE_COLS,
                                         FLAGS.NUM_CHANNELS)))
@@ -108,57 +86,6 @@ def modelB():
     return model
 
 
-def modelC():
-    model = Sequential()
-    model.add(Conv2D(128, (3, 3),
-                            border_mode='valid',
-                            input_shape=(FLAGS.IMAGE_ROWS,
-                                         FLAGS.IMAGE_COLS,
-                                         FLAGS.NUM_CHANNELS)))
-    model.add(Activation('relu'))
-
-    model.add(Conv2D(64, (3, 3)))
-    model.add(Activation('relu'))
-
-    model.add(Dropout(0.25))
-
-    model.add(Flatten())
-    model.add(Dense(128))
-    model.add(Activation('relu'))
-
-    model.add(Dropout(0.5))
-    model.add(Dense(FLAGS.NUM_CLASSES))
-    return model
-
-
-def modelD():
-    model = Sequential()
-
-    model.add(Flatten(input_shape=(FLAGS.IMAGE_ROWS,
-                                   FLAGS.IMAGE_COLS,
-                                   FLAGS.NUM_CHANNELS)))
-
-    model.add(Dense(300, init='he_normal', activation='relu'))
-    model.add(Dropout(0.5))
-    model.add(Dense(300, init='he_normal', activation='relu'))
-    model.add(Dropout(0.5))
-    model.add(Dense(300, init='he_normal', activation='relu'))
-    model.add(Dropout(0.5))
-    model.add(Dense(300, init='he_normal', activation='relu'))
-    model.add(Dropout(0.5))
-
-    model.add(Dense(FLAGS.NUM_CLASSES))
-    return model
-
-
-def model_mnist(type=1):
-    """
-    Defines MNIST model using Keras sequential model
-    """
-
-    models = [modelA, modelB, modelC, modelD]
-
-    return models[type]()
 
 
 def data_gen_mnist(X_train):
@@ -167,14 +94,14 @@ def data_gen_mnist(X_train):
     return datagen
 
 
-def load_model_mnist(model_path, type=1):
+def load_model_mnist(model_path):
 
     try:
         with open(model_path+'.json', 'r') as f:
             json_string = f.read()
             model = model_from_json(json_string)
     except IOError:
-        model = model_mnist(type=type)
+        model = modelA()
 
     model.load_weights(model_path)
     return model
