@@ -63,7 +63,7 @@ def batch_eval(tf_inputs, tf_outputs, numpy_inputs):
 def tf_train(x, y, model, X_train, Y_train, generator, model_name, x_advs=None):
     old_vars = set(tf.global_variables())
     train_size = Y_train.shape[0]
-
+    gamma = 1
     # Generate cross-entropy loss for training
     
     logits = model(x)
@@ -78,8 +78,8 @@ def tf_train(x, y, model, X_train, Y_train, generator, model_name, x_advs=None):
         # pdb.set_trace()
         preds_adv = K.softmax(logits_adv)
         # values, _ = tf.nn.top_k(preds_adv, k=2)
-        l2 = gen_adv_loss(logits_adv, y, mean=True)
-        loss = (l1+l2)*0.5#-tf.reduce_mean(values[:,0]+values[:,1])
+        l2 = gen_adv_loss(logits_adv, logits, mean=True)
+        loss = (l1+gamma*l2)#-tf.reduce_mean(values[:,0]+values[:,1])
     else:
         l2 = tf.constant(0)
         loss = l1
