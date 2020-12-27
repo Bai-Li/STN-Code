@@ -17,7 +17,7 @@ multici = importr("MultinomialCI")
 
 def isRobust(prob, sd, epsilon):
     fv = FloatVector(sorted(prob)[::-1])
-    ci = np.array(multici.multinomialCI(fv, 0.95))
+    ci = np.array(multici.multinomialCI(fv, 0.05))
     qi = ci[0,0]
     qj = ci[1,1]
     alpha = np.linspace(1.01,2.0, 100)
